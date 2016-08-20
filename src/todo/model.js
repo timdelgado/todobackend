@@ -1,10 +1,11 @@
 
 
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
 
-var connection = mongoose.createConnection("mongodb://192.168.99.100:27017/todo");
+var connection = mongoose.createConnection("mongodb://192.168.99.100:27017");
 autoIncrement.initialize(connection);
 
 

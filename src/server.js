@@ -5,7 +5,9 @@
 
 // call the packages we need
 var express = require('express');
+var mongoose = require('mongoose');
 var routes = require('./todo/routes');
+
 
 var app = express();
 var bodyParser = require('body-parser');

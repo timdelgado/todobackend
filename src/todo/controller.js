@@ -1,23 +1,26 @@
 
 module.exports = function createTodoController(){
-    
-    // function toWireType(todoItem, baseUrl){
-    //     return {
-    //             id: todo.id,
-    //             title: todo.title,
-    //             order: todo.order,
-    //             completed: todo.completed,
-    //             url: "http://#{baseUrl}/#{todo.id}"
-    //     }
-    // }
-    
-    // var TodoModel = require('../todo/model');
-    
+
+    function toWireType(todo, baseUrl){
+        return {
+                id: todo.id,
+                title: todo.title,
+                order: todo.order,
+                completed: todo.completed,
+                url: "http://#{baseUrl}/#{todo.id}"
+        }
+    }
+
+    var TodoModel = require('../todo/model');
+
     return {
         create: function(todo, baseUrl){
-            //todo.completed = false;
-                 // TodoModel.create(todo).then(function(todo){ 
-                // return toWireType(todo,baseUrl);
+            todo.completed = false;
+           // TodoModel.create(todo, function(err){
+            //    if(err) throw err;
+            //});
+            
+            return toWireType(todo,baseUrl);
         }
     };
 };
@@ -26,6 +29,8 @@ module.exports = function createTodoController(){
 
 
 
+    
+   
 
 
 
