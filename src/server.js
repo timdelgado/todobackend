@@ -96,6 +96,30 @@ router.route('/todos/:todo_id')
             
             res.json(toWireType(todo,req));
         });
+    })
+
+    // update the todo with this id (accessed at PUT http://localhost:8080/api/todo/:todo_id)
+    .put(function(req, res) {
+
+        // use our todo model to find the todo we want
+        Todo.findById(req.params.todo_id, function(err, todo) {
+
+            if (err)
+                res.send(err);
+
+            todo.title = req.body.title;  // set the todo values  (comes from the request)
+            todo.completed = req.body.completed;
+            todo.order = req.body.order;
+
+            // save the bear
+            todo.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json(toWireType(todo,req));
+            });
+
+        });
     });
     
 
