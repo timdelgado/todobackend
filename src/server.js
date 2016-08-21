@@ -11,8 +11,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+//configure cors access
+var corsOptions = { orgin:true, methods:['GET','HEAD','PUT','PATCH','POST','DELETE'],allowedHeaders:['Content-Type']};
+
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://192.168.99.100:27017/tdelgado');
@@ -37,7 +40,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
+    console.log(req);
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -58,8 +61,10 @@ router.route('/todos')
         todo.save(function(err) {
             if (err)
                 res.send(err);
-
-            res.json(toWireType(todo,req));
+            
+            var jsonResponse = toWireType(todo,req);
+            res.location(jsonResponse.url);    
+            res.status(201).json(toWireType(todo,req));
         });
         
     })
@@ -83,7 +88,7 @@ router.route('/todos')
             if (err)
                 res.send(err);
 
-            res.json(toWireType(todo,req));
+            res.status(204).json(toWireType(todo,req));
         });
     });
 
@@ -97,12 +102,38 @@ router.route('/todos/:todo_id')
             if (err)
                 res.send(err);
             
-            res.json(toWireType(todo,req));
+            if(todo)
+                res.json(toWireType(todo,req));
+            else 
+                res.status(404).send();
         });
     })
 
-    // update the todo with this id (accessed at PUT http://localhost:8080/api/todo/:todo_id)
+    // update the todo with this id (accessed at PATCH http://localhost:8080/api/todo/:todo_id)
     .patch(function(req, res) {
+
+        // use our todo model to find the todo we want
+        Todo.findById(req.params.todo_id, function(err, todo) {
+
+            if (err)
+                res.send(err);
+
+            todo.title = req.body.title;  // set the todo values  (comes from the request)
+            todo.completed = req.body.completed;
+            todo.order = req.body.order;
+
+            // save the bear
+            todo.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json(toWireType(todo,req));
+            });
+
+        })
+    })
+     // update the todo with this id (accessed at PUT http://localhost:8080/api/todo/:todo_id)
+    .put(function(req, res) {
 
         // use our todo model to find the todo we want
         Todo.findById(req.params.todo_id, function(err, todo) {
@@ -132,7 +163,7 @@ router.route('/todos/:todo_id')
             if (err)
                 res.send(err);
 
-            res.json(toWireType(todo,req));
+            res.status(204).send();
         });
     });
 
