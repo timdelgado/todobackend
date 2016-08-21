@@ -4,14 +4,19 @@ var router = express.Router();
 
 var controller = require('./controller')();
 
+function getUrl(req){
+  return req.protocol + '://' + req.get('host') + '/api/todos';
+}
+
 router.post('/', function(req,res){
-    var result= controller.create(req.body, req.get('host'));
+    var result = controller.create(req.body, getUrl(req));
     return res.json(result);
 });
 
-// respond with "hello world" when a GET request is made to the homepage
+// return all todo items
 router.get('/', function(req, res) {
-  res.send('hello world');
+    var result = controller.getAll(getUrl(req));
+    return res.json(result);
 });
 
 module.exports = router;

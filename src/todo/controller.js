@@ -7,20 +7,34 @@ module.exports = function createTodoController(){
                 title: todo.title,
                 order: todo.order,
                 completed: todo.completed,
-                url: "http://#{baseUrl}/#{todo.id}"
+                url: baseUrl + "/" + todo.id
         }
     }
 
-    var TodoModel = require('../todo/model');
+    var Todo = require('../todo/model');
 
     return {
         create: function(todo, baseUrl){
-            todo.completed = false;
-           // TodoModel.create(todo, function(err){
-            //    if(err) throw err;
-            //});
+
+            var newItem = new Todo();
+            newItem.title = todo.title;
+            newItem.order = todo.order;
+            newItem.completed = todo.completed;
             
-            return toWireType(todo,baseUrl);
+            newItem.save(function(err){
+                if(err) throw err;
+            });
+            
+            return toWireType(newItem,baseUrl);
+        },
+        getAll: function(baseUrl){
+
+            Todo.find(function(err, todos) {
+            if (err)
+                res.send(err);
+
+            return todos;
+            });
         }
     };
 };
