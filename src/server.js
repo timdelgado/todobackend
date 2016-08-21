@@ -38,13 +38,7 @@ var router = express.Router();              // get an instance of the express Ro
 // middleware to use for all requests
 router.use(function(req, res, next) {
     // do logging
-    console.log('Something is happening.');
     next(); // make sure we go to the next routes and don't stop here
-});
-
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
 
@@ -82,6 +76,15 @@ router.route('/todos')
 
             res.json(toSend);
         });
+    })
+    // delete the todo with this id (accessed at DELETE http://localhost:8080/api/todos/:todo_id)
+    .delete(function(req, res) {
+        Todo.remove({}, function(err, todo) {
+            if (err)
+                res.send(err);
+
+            res.json(toWireType(todo,req));
+        });
     });
 
 // on routes that end in /todos/:todo_id
@@ -99,7 +102,7 @@ router.route('/todos/:todo_id')
     })
 
     // update the todo with this id (accessed at PUT http://localhost:8080/api/todo/:todo_id)
-    .put(function(req, res) {
+    .patch(function(req, res) {
 
         // use our todo model to find the todo we want
         Todo.findById(req.params.todo_id, function(err, todo) {
@@ -132,7 +135,7 @@ router.route('/todos/:todo_id')
             res.json(toWireType(todo,req));
         });
     });
-    
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
