@@ -17,7 +17,6 @@ app.use(cors());
 var mongoose   = require('mongoose');
 mongoose.connect('mongodb://192.168.99.100:27017/tdelgado');
 
-var Bear     = require('./models/bear');
 var Todo     = require('./models/todo');
 
 
@@ -48,35 +47,6 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-// on routes that end in /bears
-// ----------------------------------------------------
-router.route('/bears')
-
-    // create a bear (accessed at POST http://localhost:8080/api/bears)
-    .post(function(req, res) {
-        
-        var bear = new Bear();      // create a new instance of the Bear model
-        bear.name = req.body.name;  // set the bears name (comes from the request)
-
-        // save the bear and check for errors
-        bear.save(function(err) {
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Bear created!' });
-        });
-        
-    })
-
-    // get all the bears (accessed at GET http://localhost:8080/api/bears)
-    .get(function(req, res) {
-        Bear.find(function(err, bears) {
-            if (err)
-                res.send(err);
-
-            res.json(bears);
-        });
-    });
 
 // on routes that end in /todos
 // ----------------------------------------------------
@@ -111,6 +81,20 @@ router.route('/todos')
             });    
 
             res.json(toSend);
+        });
+    });
+
+// on routes that end in /todos/:todo_id
+// ----------------------------------------------------
+router.route('/todos/:todo_id')
+
+    // get the todo with that id (accessed at GET http://localhost:8080/api/todo/:todo_id)
+    .get(function(req, res) {
+        Todo.findById(req.params.todo_id, function(err, todo) {
+            if (err)
+                res.send(err);
+            
+            res.json(toWireType(todo,req));
         });
     });
     
