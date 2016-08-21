@@ -120,6 +120,17 @@ router.route('/todos/:todo_id')
             });
 
         });
+    })
+    // delete the todo with this id (accessed at DELETE http://localhost:8080/api/todos/:todo_id)
+    .delete(function(req, res) {
+        Todo.remove({
+            _id: req.params.todo_id
+        }, function(err, todo) {
+            if (err)
+                res.send(err);
+
+            res.json(toWireType(todo,req));
+        });
     });
     
 
