@@ -5,11 +5,9 @@
 
 // call the packages we need
 var express = require('express');
-//var mongoose = require('mongoose');
-//var routes = require('./todo/routes');
-
-
 var app = express();
+
+
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
@@ -68,6 +66,16 @@ router.route('/bears')
             res.json({ message: 'Bear created!' });
         });
         
+    })
+
+    // get all the bears (accessed at GET http://localhost:8080/api/bears)
+    .get(function(req, res) {
+        Bear.find(function(err, bears) {
+            if (err)
+                res.send(err);
+
+            res.json(bears);
+        });
     });
 
 // on routes that end in /todos
@@ -90,8 +98,22 @@ router.route('/todos')
             res.json(toWireType(todo,req));
         });
         
+    })
+
+    // get all the todos (accessed at GET http://localhost:8080/api/todos)
+    .get(function(req, res) {
+        Todo.find(function(err, todos) {
+            if (err)
+                res.send(err);
+
+            var toSend = todos.map(function(todo){ 
+                return toWireType(todo,req);
+            });    
+
+            res.json(toSend);
+        });
     });
-// more routes for our API will happen here
+    
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
