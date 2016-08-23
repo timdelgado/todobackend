@@ -6,7 +6,7 @@
 // call the packages we need
 var express = require('express');
 var app = express();
-
+var config = require('./config/config.js');
 
 var bodyParser = require('body-parser');
 var cors = require('cors');
@@ -18,7 +18,8 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 var mongoose   = require('mongoose');
-mongoose.connect('mongodb://192.168.99.100:27017/tdelgado');
+console.log("Connection to mongo:" + config.get('mongo'));
+mongoose.connect(config.get('mongo'));
 
 var Todo     = require('./models/todo');
 
@@ -172,7 +173,7 @@ router.route('/todos/:todo_id')
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-app.listen(Number(process.env.PORT || 8080));
+app.listen(Number(config.get('port')));
 
 
 
