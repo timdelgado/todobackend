@@ -41,7 +41,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    console.log(req);
+    console.log(req.body);
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -119,9 +119,9 @@ router.route('/todos/:todo_id')
             if (err)
                 res.send(err);
 
-            todo.title = req.body.title;  // set the todo values  (comes from the request)
-            todo.completed = req.body.completed;
-            todo.order = req.body.order;
+            todo.title = req.body.title || todo.title;  // set the todo values  (comes from the request)
+            todo.completed = req.body.completed || todo.completed;
+            todo.order = req.body.order || todo.order;
 
             // save the bear
             todo.save(function(err) {
