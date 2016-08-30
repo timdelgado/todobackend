@@ -1,0 +1,22 @@
+test:
+    build: ../../
+    dockerfile: docker/dev/Dockerfile
+    volumes_from:
+        - cache
+    links:
+        - db
+    environment:
+        NODE_ENV: test
+
+db:
+    image: mongo:latest
+    hostname: db
+    expose: 
+        - "27017"
+
+cache:
+    build: ../../
+    dockerfile: docker/dev/Dockerfile
+    volumes:
+        - /tmp/cache:/root/.npm
+    entrypoint: "true"
