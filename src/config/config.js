@@ -24,7 +24,7 @@ var conf = convict({
 
 // Load environment dependent configuration
 var env = conf.get('env');
-conf.loadFile('./config/' + env + '.json');
+conf.loadFile( './config/' + env + '.json');
 
 // Perform validation
 conf.validate({strict: true});

@@ -41,7 +41,7 @@ var router = express.Router();              // get an instance of the express Ro
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
-    console.log(req.body);
+    console.log(req.url);
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -174,6 +174,7 @@ router.route('/todos/:todo_id')
 app.use('/api', router);
 
 app.listen(Number(config.get('port')));
+module.exports.getApp = app;
 
 
 

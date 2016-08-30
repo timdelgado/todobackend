@@ -8,7 +8,7 @@
             "program": "${workspaceRoot}/src/server.js",
             "stopOnEntry": false,
             "args": [],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/src",
             "preLaunchTask": null,
             "runtimeExecutable": null,
             "runtimeArgs": [
@@ -46,12 +46,12 @@
             "name": "Run mocha",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+            "program": "${workspaceRoot}/src/node_modules/mocha/bin/_mocha",
             "stopOnEntry": false,
             "args": ["test/**/*.js", "--no-timeouts"],
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/src",
             "runtimeExecutable": null,
-            "env": { "NODE_ENV": "testing"}
+            "env": { "NODE_ENV": "development"}
             }
     ]
 }
