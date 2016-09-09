@@ -14,9 +14,19 @@ db:
     expose: 
         - "27017"
 
+builder:
+    build: ../../
+    dockerfile: docker/dev/Dockerfile
+    volumes:
+        - ../../target:/release/package
+    volumes_from:
+        - cache
+    entrypoint: "build.sh"
+
 cache:
     build: ../../
     dockerfile: docker/dev/Dockerfile
     volumes:
         - /tmp/cache:/root/.npm
+        - /build
     entrypoint: "true"
