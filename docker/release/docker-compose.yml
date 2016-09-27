@@ -1,0 +1,15 @@
+webapi:
+    build: ../../
+    dockerfile: docker/release/Dockerfile
+    links:
+        - db
+    environment:
+        NODE_ENV: production
+    ports:
+        - "8000:8080"
+
+db:
+    image: mongo:latest
+    hostname: db
+    expose: 
+        - "27017"
