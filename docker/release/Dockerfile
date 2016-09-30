@@ -1,8 +1,10 @@
 FROM tdelgado/todobackend-base
 MAINTAINER timdelgado@gamestop.com
 
-COPY target /application
-WORKDIR /application
+RUN mkdir -p /usr/scr/app
+WORKDIR /usr/scr/app
+
+COPY target /usr/scr/app
 
 EXPOSE 8080
 

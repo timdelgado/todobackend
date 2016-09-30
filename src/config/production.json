@@ -1,0 +1,4 @@
+{
+    "mongo":"mongodb://db:27017/todobackend",
+    "port": 8080
+}
