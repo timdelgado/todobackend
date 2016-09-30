@@ -1,4 +1,4 @@
-webapi:
+app:
     build: ../../
     dockerfile: docker/release/Dockerfile
     links:
@@ -6,7 +6,17 @@ webapi:
     environment:
         NODE_ENV: production
     ports:
-        - "8000:8080"
+        - "8080:8080"
+
+test:
+    image: tdelgado/todobackend-specs
+    links:
+        - app
+    environment:
+        URL: http://app:8080/api/todos
+        JUNIT_REPORT_PATH: /reports/acceptance.xml
+        JUNIT_REPORT_STACK: 1
+    command: --reporter mocha-jenkins-reporter
 
 db:
     image: mongo:latest
