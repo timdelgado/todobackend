@@ -7,9 +7,9 @@ test:
         - db
     environment:
         NODE_ENV: test
-        MOCHA_FILE: ./reports/unit_tests.xml
+        MOCHA_FILE: /reports/unit_tests.xml
     entrypoint: "test.sh"
-    command: ./node_modules/.bin/mocha --reporter mocha-junit-reporter
+    command: "./node_modules/.bin/mocha --reporter mocha-junit-reporter"
     
 
 db:
