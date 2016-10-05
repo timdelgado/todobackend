@@ -2,7 +2,7 @@
 #1) Run unit and integration tests
 #2) Build application artifacts
 
-FROM tdelgado/todobackend-base
+FROM timdelgado/todobackend-base
 MAINTAINER timdelgado@gamestop.com
 
 #OUTPUT: Release artifacts are output here

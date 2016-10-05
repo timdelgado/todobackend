@@ -1,4 +1,4 @@
-FROM tdelgado/todobackend-base
+FROM timdelgado/todobackend-base
 MAINTAINER timdelgado@gamestop.com
 
 RUN mkdir -p /usr/scr/app
