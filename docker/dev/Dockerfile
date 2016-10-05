@@ -16,8 +16,8 @@ VOLUME /reports
 COPY scripts /usr/local/bin
 RUN chmod +x /usr/local/bin/test.sh && chmod +x /usr/local/bin/build.sh
 
-ENTRYPOINT ["test.sh"]
-CMD ["npm", "test"]
+#ENTRYPOINT ["test.sh"]
+#CMD ["npm", "test"]
 
 #Add application source
 COPY src /application

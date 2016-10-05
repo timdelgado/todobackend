@@ -1,4 +1,5 @@
 
 .vscode
+reports
 src/node_modules
 src/.vscode

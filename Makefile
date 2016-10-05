@@ -25,6 +25,7 @@ test:
 	@ docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) build
 	${INFO} "Running unit and integration tests..."
 	@ docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) up test
+	@docker cp $$(docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) ps -q test):/reports/. reports
 	${INFO} "Testing complete"
 build:
 	${INFO} "Building application artifacts..."
@@ -38,6 +39,7 @@ release:
 	@ docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) build
 	${INFO} "Running acceptance tests..."
 	@ docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) up test
+	@docker cp $$(docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) ps -q test):/reports/. reports
 	${INFO} "Acceptance tests complete"
 
 clean:
