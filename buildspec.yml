@@ -7,6 +7,7 @@ containers:
                 commands:
                     - echo Starting the Docker service...
                     - echo Nothing to do in the install phase..
+                    - apt-get install build-essential
             pre_build:
                 commands:
                     - echo Entering pre_build phase...
