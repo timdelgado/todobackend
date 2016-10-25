@@ -1,0 +1,21 @@
+version: 0.0
+
+containers:
+    main:
+        phases:
+            install:
+                commands:
+                    - echo Starting the Docker service...
+                    - echo Nothing to do in the install phase..
+            pre_build:
+                commands:
+                    - echo Entering pre_build phase...
+                    - echo Nothing to do in the pre_build phase...
+            during_build: 
+                commands:
+                    - echo Entering during_build phase...
+                    - echo Build started on `date`
+                    - make test
+            post_build:
+                commands:
+                    - echo Build completed on  `date`
