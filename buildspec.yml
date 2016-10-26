@@ -8,6 +8,8 @@ containers:
                     - echo Starting the Docker service...
                     - echo Nothing to do in the install phase..
                     - apt-get install -y build-essential
+                    - apt-get install -y python-pip
+                    - pip install docker-compose
             pre_build:
                 commands:
                     - echo Entering pre_build phase...
@@ -16,7 +18,7 @@ containers:
                 commands:
                     - echo Entering during_build phase...
                     - echo Build started on `date`
-                    - docker-compose
+                    - docker-compose --version
                     - make test
             post_build:
                 commands:
