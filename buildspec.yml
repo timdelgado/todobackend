@@ -16,7 +16,7 @@ containers:
                 commands:
                     - echo Entering during_build phase...
                     - echo Build started on `date`
-                    - cat makefile
+                    - ls
                     - make test
             post_build:
                 commands:
