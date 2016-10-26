@@ -16,6 +16,7 @@ containers:
                 commands:
                     - echo Entering during_build phase...
                     - echo Build started on `date`
+                    - docker-compose
                     - make test
             post_build:
                 commands:
