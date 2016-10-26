@@ -24,10 +24,10 @@ CHECK := @bash -c 'if [[ $(INSPECT) -ne 0 ]]; then exit $(INSPECT); fi' VALUE
 
 test:
 	${INFO} "Building images..."
-	@ docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) build
+	docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) build
 	${INFO} "Running unit and integration tests..."
-	@ docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) up test
-	@docker cp $$(docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) ps -q test):/reports/. reports
+	docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) up test
+	docker cp $$(docker-compose -p $(DEV_PROJECT) -f $(DEV_COMPOSE_FILE) ps -q test):/reports/. reports
 	${CHECK} $(DEV_PROJECT) $(DEV_COMPOSE_FILE) test
 	${INFO} "Testing complete"
 build:
