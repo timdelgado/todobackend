@@ -21,7 +21,7 @@
     "convict": "^1.4.0",
     "cors": "^2.7.1",
     "express": "^4.14.0",
-    "mongoose": "^4.5.9"
+    "mongoose": "4.5.9"
   },
   "devDependencies": {
     "chai": "^3.5.0",
